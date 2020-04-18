@@ -1,28 +1,24 @@
-import React from 'react'
-import { Router, Link, Head } from 'react-static'
-import { hot } from 'react-hot-loader'
-//
-import Routes from 'react-static-routes'
+import React from 'react';
+import Home from './containers/Home'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-
-import './app.css'
-
-const App = () => (
-  <Router>
+function App() {
+  return (
+    
     <div>
-      <Head>
+      <head>
         <meta charSet="UTF-8" />
         <title>Effectors - IMGRBS</title>
         <link rel="icon" href='logo.png' />
-      </Head>
+      </head>
       <nav>
-        <Link exact to="/">Home</Link>
+        <a href="/">Home</a>
       </nav>
       <div className="content">
-        <Routes />
+        <Home />
       </div>
     </div>
-  </Router>
-)
+  );
+}
 
-export default hot(module)(App)
+export default App;

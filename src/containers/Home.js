@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { withSiteData } from 'react-static'
+import React from 'react'
 
 const recommends = [
   {
@@ -189,4 +188,4 @@ class Home extends React.Component {
   }
 }
 
-export default withSiteData(Home)
+export default Home
