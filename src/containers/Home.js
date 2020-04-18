@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withSiteData } from 'react-static'
 
 const recommends = [
@@ -122,51 +122,50 @@ const longs = [
 
 const PATH = 'effects';
 
-function createAudio(sound){
-  return ({...sound, audio: new Audio(`${PATH}/${sound.file}`)})
+function createAudio(file) {
+  return new Audio(`${PATH}/${file}`)
 }
 
-function mapAudios(sounds) {
-  return sounds.map(createAudio)
+const handleSound = ({ file, sound, setSound }) => {
+  if (!sound) {
+    sound = createAudio(file)
+    setSound(sound)
+  }
+  sound.load()
+  sound.play()
 }
 
-const handleSound = (audio) => {
-  audio.load()
-  audio.play()
+const Button = ({ name, file }) => {
+  const [sound, setSound] = useState(null)
+  return (
+    <button className='btn btn-lg border border-primary m-2' onClick={() => handleSound({ file, sound, setSound })}>{name}</button>
+  )
 }
-
-const Button = ({ name, audio }) => (
-  <button className='btn btn-lg border border-primary m-2' onClick={() => handleSound(audio)}>{name}</button>
-)
 
 const SoundList = ({ title, sounds }) => (
   <div className="card col-12 col-lg-5 my-3 mx-2 p-3">
     <div className="card-body">
       <h3 className='card-title'>{title}</h3>
       {
-        console.log(sounds)
-      }
-      {
-        sounds.map(sound => <Button key={sound.name} {...sound} />)
+        sounds.map((sound, index) => <Button key={sound.name} index={index} {...sound} />)
       }
     </div>
   </div>
 )
 
 class Home extends React.Component {
-
   render() {
     return (
       <div className='container'>
         <div className="row d-flex justify-content-center">
           <div className="col-12 text-center">
-            <h1>Welcome to "SIT ตาม สาย" Effector</h1>
+            <h1>Welcome to "@IMGRBS" Effector</h1>
           </div>
-          <SoundList title='ใช้บ่อย' sounds={mapAudios(recommends)} />
-          <SoundList title='เย้' sounds={mapAudios(goods)} />
-          <SoundList title='ตู้ม' sounds={mapAudios(bads)} />
-          <SoundList title='ต่อย' sounds={mapAudios(hits)} />
-          <SoundList title='เสียงนาน' sounds={mapAudios(longs)} />
+          <SoundList title='ใช้บ่อย' sounds={recommends} />
+          <SoundList title='เย้' sounds={goods} />
+          <SoundList title='ตู้ม' sounds={bads} />
+          <SoundList title='ต่อย' sounds={hits} />
+          <SoundList title='เสียงนาน' sounds={longs} />
         </div>
       </div>
     )
