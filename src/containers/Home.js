@@ -158,15 +158,16 @@ class Home extends React.Component {
   }
 
   preloadAudio = async (key, sounds) => {
-    const newSounds = await sounds.map(sound => ({ ...sound, audio: createAudio(sound.file) }))
-    this.setState({
-      [key]: newSounds
-    })
+    return sounds.map(sound => ({ ...sound, audio: createAudio(sound.file) }))
   }
 
   async componentDidMount() {
-    await Object.keys(this.state).map(async key => {
-      await this.preloadAudio(key, this.state[key])
+    this.setState({
+      recommends: await this.preloadAudio('recommends', this.state.recommends),
+      goods: await this.preloadAudio('goods', this.state.goods),
+      bads: await this.preloadAudio('bads', this.state.bads),
+      hits: await this.preloadAudio('hits', this.state.hits),
+      longs: await this.preloadAudio('longs', this.state.longs),
     })
   }
 
