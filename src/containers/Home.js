@@ -164,8 +164,8 @@ class Home extends React.Component {
     })
   }
 
-  componentDidMount() {
-    Object.keys(this.state).map(async key => {
+  async componentDidMount() {
+    await Object.keys(this.state).map(async key => {
       await this.preloadAudio(key, this.state[key])
     })
   }
