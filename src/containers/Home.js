@@ -126,19 +126,14 @@ function createAudio(file) {
   return new Audio(`${PATH}/${file}`)
 }
 
-const handleSound = ({ file, sound, setSound }) => {
-  if (!sound) {
-    sound = createAudio(file)
-    setSound(sound)
-  }
-  sound.load()
-  sound.play()
+const handleAudio = ({ audio }) => {
+  audio.load()
+  audio.play()
 }
 
-const Button = ({ name, file }) => {
-  const [sound, setSound] = useState(null)
+const Button = ({ name, audio }) => {
   return (
-    <button className='btn btn-lg border border-primary m-2' onClick={() => handleSound({ file, sound, setSound })}>{name}</button>
+    <button className='btn btn-lg border border-primary m-2' onClick={() => handleAudio({ audio })}>{name}</button>
   )
 }
 
@@ -154,6 +149,27 @@ const SoundList = ({ title, sounds }) => (
 )
 
 class Home extends React.Component {
+  state = {
+    recommends,
+    goods,
+    bads,
+    hits,
+    longs,
+  }
+
+  preloadAudio = async (key, sounds) => {
+    const newSounds = await sounds.map(sound => ({ ...sound, audio: createAudio(sound.file) }))
+    this.setState({
+      [key]: newSounds
+    })
+  }
+
+  componentDidMount() {
+    Object.keys(this.state).map(async key => {
+      await this.preloadAudio(key, this.state[key])
+    })
+  }
+
   render() {
     return (
       <div className='container'>
@@ -161,11 +177,11 @@ class Home extends React.Component {
           <div className="col-12 text-center">
             <h1>Welcome to "@IMGRBS" Effector</h1>
           </div>
-          <SoundList title='ใช้บ่อย' sounds={recommends} />
-          <SoundList title='เย้' sounds={goods} />
-          <SoundList title='ตู้ม' sounds={bads} />
-          <SoundList title='ต่อย' sounds={hits} />
-          <SoundList title='เสียงนาน' sounds={longs} />
+          <SoundList title='ใช้บ่อย' sounds={this.state.recommends} />
+          <SoundList title='เย้' sounds={this.state.goods} />
+          <SoundList title='ตู้ม' sounds={this.state.bads} />
+          <SoundList title='ต่อย' sounds={this.state.hits} />
+          <SoundList title='เสียงนาน' sounds={this.state.longs} />
         </div>
       </div>
     )
