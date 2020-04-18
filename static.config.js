@@ -9,7 +9,7 @@ export default {
         component: 'src/containers/Home',
       },
       {
-        path: '*',
+        is404: true,
         component: 'src/containers/404',
       },
     ]
