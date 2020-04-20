@@ -122,12 +122,13 @@ const longs = [
 const PATH = 'effects';
 
 function createAudio(file) {
+  console.log(`[CREATED AUDIO] ${file}`)
   return new Audio(`${PATH}/${file}`)
 }
 
-const handleAudio = ({ audio }) => {
-  audio.load()
-  audio.play()
+const handleAudio = async ({ audio }) => {
+  await audio.load()
+  await audio.play()
 }
 
 const Button = ({ name, audio }) => {
@@ -141,7 +142,7 @@ const SoundList = ({ title, sounds }) => (
     <div className="card-body">
       <h3 className='card-title'>{title}</h3>
       {
-        sounds.map((sound, index) => <Button key={sound.name} index={index} {...sound} />)
+        sounds.map((sound, index) => <Button key={sound.file} index={index} {...sound} />)
       }
     </div>
   </div>
@@ -156,11 +157,15 @@ class Home extends React.Component {
     longs,
   }
 
-  preloadAudio = async (key, sounds) => {
-    return sounds.map(sound => ({ ...sound, audio: createAudio(sound.file) }))
+  preloadAudio = (key, sounds) => {
+    return sounds.map(sound => {
+      const audio = createAudio(sound.file)
+      return ({ ...sound, audio })
+    })
   }
 
   async componentDidMount() {
+    console.log('[LOADING AUDIOS]')
     this.setState({
       recommends: await this.preloadAudio('recommends', this.state.recommends),
       goods: await this.preloadAudio('goods', this.state.goods),
