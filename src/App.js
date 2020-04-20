@@ -4,13 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
-    
     <div>
-      <head>
-        <meta charSet="UTF-8" />
-        <title>Effectors - IMGRBS</title>
-        <link rel="icon" href='logo.png' />
-      </head>
       <nav>
         <a href="/">Home</a>
       </nav>
