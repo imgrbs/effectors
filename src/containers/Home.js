@@ -182,16 +182,16 @@ class Home extends React.Component {
           <div className="col-12 text-center">
             <h1>Welcome to "@IMGRBS" Effector</h1>
           </div>
-          <div className="col-12 col-lg-10 text-center">
-            <div class="alert alert-warning">
-              <h4>หมายเหตุ: กดเล่นเสียงครั้งแรกอาจมีดีเลย์ตามความเร็วอินเทอร์เน็ตของท่าน</h4>
-            </div>
-          </div>
           <SoundList title='ใช้บ่อย' sounds={this.state.recommends} />
           <SoundList title='เย้' sounds={this.state.goods} />
           <SoundList title='ตู้ม' sounds={this.state.bads} />
           <SoundList title='ต่อย' sounds={this.state.hits} />
           <SoundList title='เสียงนาน' sounds={this.state.longs} />
+          <div className="col-12 col-lg-10 text-center">
+            <div class="alert alert-warning">
+              <h4>contribution at https://github.com/imgrbs/effectors</h4>
+            </div>
+          </div>
         </div>
       </div>
     )
