@@ -187,10 +187,6 @@ class Home extends React.Component {
           <SoundList title='ตู้ม' sounds={this.state.bads} />
           <SoundList title='ต่อย' sounds={this.state.hits} />
           <SoundList title='เสียงนาน' sounds={this.state.longs} />
-            <div class="alert alert-warning">
-              <h4>contribution at https://github.com/imgrbs/effectors</h4>
-            </div>
-          </div>
         </div>
       </div>
     )
